@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lastq.cs" />
     <Compile Include="DAL\VariableRepository.cs" />
     <Compile Include="DAL\VariableContext.cs" />
     <Compile Include="Migrations\201609200121100_InitialCreate.cs" />
