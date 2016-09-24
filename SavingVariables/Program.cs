@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SavingVariables.DAL;
+using SavingVariables.Models;
 
 namespace SavingVariables
 {
@@ -11,10 +13,11 @@ namespace SavingVariables
 
         static void Main(string[] args)
         {
+            VariableContext context = new VariableContext();
+            VariableRepository repo = new VariableRepository(context);
             Lastq prev = new Lastq();
             bool _continue = true;
 
-            Console.WriteLine("Incorrect input!");
             Console.WriteLine("Set a variable using this format: [variable] = [value]. The variable must be one letter long.");
             Console.WriteLine("Input a set variable to check its value.");
             Console.WriteLine("Input Show All to see all stored variables.");
@@ -41,12 +44,16 @@ namespace SavingVariables
                         Console.WriteLine(prev.lastq);
                         break;
                     case "clear all":
-                        //clear all
+                        repo.ClearAll();
                         Console.WriteLine("All variables cleared!");
                         break;
                     case "show all":
+                        List<Variable> ListOfVariables = repo.GetVariables();
                         Console.WriteLine("Variable -> Value");
-                        //show all
+                        foreach (Variable variable in ListOfVariables)
+                        {
+                            Console.WriteLine(variable.VariableName + " -> " + variable.VariableValue);
+                        }
                         break;
                     default:
                         
@@ -65,17 +72,36 @@ namespace SavingVariables
                         }
                         if (eval.ClearStatement)
                         {
-                            //clear [second term]
+                            repo.ClearVariable(eval.FirstTerm);
+                            Console.WriteLine("  = " + eval.FirstTerm + " cleared!");
                             break;
                         }
-                        if (eval.IsItAnEquals)
+                        else if (eval.IsItAnEquals)
                         {
-                            //set variable
+                            Variable DoesItExist = repo.Find(eval.FirstTerm);
+                            if (DoesItExist == null)
+                            {
+                                repo.AddVariable(eval.SecondTerm, eval.FirstTerm);
+                                Console.WriteLine("  = Saved " + eval.FirstTerm + " as " + eval.SecondTerm + ".");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Variable already set!");
+                            }
+                            DoesItExist = null;
                             break;
                         }
-                        if (eval.SecondTerm == null)
+                        else if (eval.SingleVariableEvaluation)
                         {
-                            //get single variable
+                            Variable DoesItExist = repo.Find(eval.FirstTerm);
+                            if (DoesItExist != null)
+                            {
+                                Console.WriteLine("  = " + DoesItExist.VariableValue);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Variable not set!");
+                            }
                             break;
                         }
                         Console.WriteLine("Error!");

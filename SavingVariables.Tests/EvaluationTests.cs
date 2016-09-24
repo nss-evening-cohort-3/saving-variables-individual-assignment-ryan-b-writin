@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SavingVariables.Tests
 {
     [TestClass]
-    class EvaluationTests
+    public class EvaluationTests
     {
         [TestMethod]
         public void EvalCanCreateInstance()
@@ -23,7 +23,7 @@ namespace SavingVariables.Tests
             Evaluation eval = new Evaluation(command);
 
             string expectedFirstTerm = "x";
-            string expectedSecondTerm = "4";
+            int expectedSecondTerm = 4;
 
             Assert.AreEqual(expectedFirstTerm, eval.FirstTerm);
             Assert.AreEqual(expectedSecondTerm, eval.SecondTerm);
@@ -38,8 +38,8 @@ namespace SavingVariables.Tests
             string expectedFirstTerm = "x";
 
             Assert.AreEqual(expectedFirstTerm, eval.FirstTerm);
-            Assert.IsFalse(eval.IsItAnEquals);
-            Assert.IsNull(eval.SecondTerm);
+            Assert.IsTrue(eval.SingleVariableEvaluation);
+            Assert.AreEqual(eval.SecondTerm, 0);
         }
         [TestMethod]
         public void EvalDigitEqualsDigit()
@@ -48,6 +48,23 @@ namespace SavingVariables.Tests
             Evaluation eval = new Evaluation(command);
 
             Assert.IsTrue(eval.InvalidInput);
+        }
+        [TestMethod]
+        public void EvalSingleDigit()
+        {
+            string command = "4";
+            Evaluation eval = new Evaluation(command);
+
+            Assert.IsTrue(eval.InvalidInput);
+        }
+        [TestMethod]
+        public void EvalNoInput()
+        {
+            string command = "";
+            Evaluation eval = new Evaluation(command);
+
+            Assert.IsTrue(eval.InvalidInput);
+
         }
     }
 }

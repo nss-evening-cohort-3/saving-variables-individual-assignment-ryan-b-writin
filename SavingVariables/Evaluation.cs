@@ -12,6 +12,7 @@ namespace SavingVariables
         public bool InvalidInput { get; set; }
         public bool ClearStatement { get; set; }
         public bool IsItAnEquals { get; set; }
+        public bool SingleVariableEvaluation { get; set; }
 
         public string FirstTerm { get; set; }
         public int SecondTerm { get; set; }
@@ -39,6 +40,7 @@ namespace SavingVariables
             }
             else if (mSingle.Success)
             {
+                SingleVariableEvaluation = true;
                 FirstTerm = mSingle.Groups[1].Value;
             }
             else
