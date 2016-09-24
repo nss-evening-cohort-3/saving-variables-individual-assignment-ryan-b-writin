@@ -23,7 +23,7 @@ namespace SavingVariables
             Console.WriteLine("Values must be less than 2,147,483,648.");
             Console.WriteLine("Input a set variable to check its value.");
             Console.WriteLine("Input Show All to see all stored variables.");
-            Console.WriteLine("Input Clear [variable] to clear a variable");
+            Console.WriteLine("Input Clear [variable] to clear a variable.");
             Console.WriteLine("Input Clear All to clear all variables.");
             Console.WriteLine("Input lastq to see your last command.");
             Console.WriteLine("Input Exit or Quit to quit.");
@@ -68,7 +68,7 @@ namespace SavingVariables
                             Console.WriteLine("Variables must be one letter long.");
                             Console.WriteLine("Values must be less than 2,147,483,648.");
                             Console.WriteLine("Input a set variable to check its value.");
-                            Console.WriteLine("Input Clear [variable] to clear a variable");
+                            Console.WriteLine("Input Clear [variable] to clear a variable.");
                             Console.WriteLine("Input Clear All to clear all variables.");
                             Console.WriteLine("Input lastq to see your last command.");
                             Console.WriteLine("Input Exit or Quit to quit.");
