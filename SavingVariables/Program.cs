@@ -26,7 +26,7 @@ namespace SavingVariables
             Console.WriteLine("Input Clear [variable] to clear a variable");
             Console.WriteLine("Input Clear All to clear all variables.");
             Console.WriteLine("Input lastq to see your last command.");
-            Console.WriteLine("Input Exit or Quit to quit");
+            Console.WriteLine("Input Exit or Quit to quit.");
 
             while (_continue)
             {
@@ -71,7 +71,7 @@ namespace SavingVariables
                             Console.WriteLine("Input Clear [variable] to clear a variable");
                             Console.WriteLine("Input Clear All to clear all variables.");
                             Console.WriteLine("Input lastq to see your last command.");
-                            Console.WriteLine("Input Exit or Quit to quit");
+                            Console.WriteLine("Input Exit or Quit to quit.");
                             break;
                         }
                         if (eval.ClearStatement)
