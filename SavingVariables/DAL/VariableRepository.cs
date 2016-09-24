@@ -17,25 +17,45 @@ namespace SavingVariables.DAL
 
         public List<Variable> GetVariables()
         {
-            throw new NotImplementedException();
+            return Context.Variables.ToList();
         }
 
         public void AddVariable(Variable newVariable)
         {
-            throw new NotImplementedException();
+            Context.Variables.Add(newVariable);
+            Context.SaveChanges();
+        }
+        public void AddVariable(int value, string name)
+        {
+            Variable variable = new Variable { VariableValue = value, VariableName = name };
+            Context.Variables.Add(variable);
+            Context.SaveChanges();
         }
 
         public Variable Find(string variableName)
         {
-            throw new NotImplementedException();
+            Variable foundIt = Context.Variables.FirstOrDefault(v => v.VariableName.ToLower() == variableName.ToLower());
+            return foundIt;
         }
 
         public Variable ClearVariable(string variableName)
         {
-            throw new NotImplementedException();
+            Variable foundIt = Find(variableName);
+            if (foundIt != null)
+            {
+                Context.Variables.Remove(foundIt);
+                Context.SaveChanges();
+            }
+            return foundIt;
         }
 
         public void ClearAll()
+        {
+            Context.Variables.RemoveRange(Context.Variables);
+            Context.SaveChanges();
+        }
+
+        public List<string> ShowAll()
         {
             throw new NotImplementedException();
         }

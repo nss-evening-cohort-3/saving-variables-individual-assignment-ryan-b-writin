@@ -30,6 +30,7 @@ namespace SavingVariables.Tests
 
             mock_variable_table.Setup(t => t.Add(It.IsAny<Variable>())).Callback((Variable a) => variableList.Add(a));
             mock_variable_table.Setup(t => t.Remove(It.IsAny<Variable>())).Callback((Variable a) => variableList.Remove(a));
+            mock_variable_table.Setup(t => t.RemoveRange(It.IsAny<IEnumerable<Variable>>())).Callback((IEnumerable<Variable> a) => variableList.RemoveRange(0, a.Count<Variable>()));
         }
 
         [TestInitialize]
@@ -87,9 +88,9 @@ namespace SavingVariables.Tests
         public void RepoCanFindVariable()
         {
             // Arrange
-            variableList.Add(new Variable { VariableValue = 1, VariableName = "x" });
-            variableList.Add(new Variable { VariableValue = 7, VariableName = "y" });
-            variableList.Add(new Variable { VariableValue = 56, VariableName = "z" });
+            variableList.Add(new Variable { VariableValue = 1, VariableName = "x" , VariableID = 1});
+            variableList.Add(new Variable { VariableValue = 7, VariableName = "y" , VariableID = 2});
+            variableList.Add(new Variable { VariableValue = 56, VariableName = "z", VariableID = 3});
             ConnectMocksToDatastore();
 
             // Act
@@ -97,17 +98,18 @@ namespace SavingVariables.Tests
             Variable actual_variable = repo.Find(variableName);
 
             // Assert
-            int expected_variable_id = 1;
+            int expected_variable_id = 2;
             int actual_variable_id = actual_variable.VariableID;
             Assert.AreEqual(expected_variable_id, actual_variable_id);
+
         }
         [TestMethod]
         public void RepoCanClearVariable()
         {
 
-            variableList.Add(new Variable { VariableValue = 1, VariableName = "x" });
-            variableList.Add(new Variable { VariableValue = 7, VariableName = "y" });
-            variableList.Add(new Variable { VariableValue = 56, VariableName = "z" });
+            variableList.Add(new Variable { VariableValue = 1, VariableName = "x", VariableID = 1 });
+            variableList.Add(new Variable { VariableValue = 7, VariableName = "y", VariableID = 2 });
+            variableList.Add(new Variable { VariableValue = 56, VariableName = "z", VariableID = 3 });
             ConnectMocksToDatastore();
 
             string variableName = "y";
@@ -123,9 +125,9 @@ namespace SavingVariables.Tests
         [TestMethod]
         public void RepoCanNotRemoveThingsNotThere()
         {
-            variableList.Add(new Variable { VariableValue = 1, VariableName = "x" });
-            variableList.Add(new Variable { VariableValue = 7, VariableName = "y" });
-            variableList.Add(new Variable { VariableValue = 56, VariableName = "z" });
+            variableList.Add(new Variable { VariableValue = 1, VariableName = "x", VariableID = 1 });
+            variableList.Add(new Variable { VariableValue = 7, VariableName = "y", VariableID = 2 });
+            variableList.Add(new Variable { VariableValue = 56, VariableName = "z", VariableID = 3 });
             ConnectMocksToDatastore();
 
             string variableName = "w";
@@ -153,9 +155,9 @@ namespace SavingVariables.Tests
         [TestMethod]
         public void RepoCanClearAll()
         {
-            variableList.Add(new Variable { VariableValue = 1, VariableName = "x" });
-            variableList.Add(new Variable { VariableValue = 7, VariableName = "y" });
-            variableList.Add(new Variable { VariableValue = 56, VariableName = "z" });
+            variableList.Add(new Variable { VariableValue = 1, VariableName = "x", VariableID = 1 });
+            variableList.Add(new Variable { VariableValue = 7, VariableName = "y", VariableID = 2 });
+            variableList.Add(new Variable { VariableValue = 56, VariableName = "z", VariableID = 3 });
             ConnectMocksToDatastore();
 
             repo.ClearAll();

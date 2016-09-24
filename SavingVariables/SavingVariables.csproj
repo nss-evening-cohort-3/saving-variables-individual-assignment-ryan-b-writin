@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Evaluation.cs" />
     <Compile Include="Lastq.cs" />
     <Compile Include="DAL\VariableRepository.cs" />
     <Compile Include="DAL\VariableContext.cs" />
