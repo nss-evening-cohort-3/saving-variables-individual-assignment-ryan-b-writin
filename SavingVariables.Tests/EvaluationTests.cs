@@ -66,5 +66,13 @@ namespace SavingVariables.Tests
             Assert.IsTrue(eval.InvalidInput);
 
         }
+        [TestMethod]
+        public void EvalNumberTooBig()
+        {
+            string command = "x =  2147483648";
+            Evaluation eval = new Evaluation(command);
+
+            Assert.IsTrue(eval.InvalidInput);
+        }
     }
 }

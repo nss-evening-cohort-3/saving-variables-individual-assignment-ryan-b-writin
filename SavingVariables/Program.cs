@@ -18,7 +18,9 @@ namespace SavingVariables
             Lastq prev = new Lastq();
             bool _continue = true;
 
-            Console.WriteLine("Set a variable using this format: [variable] = [value]. The variable must be one letter long.");
+            Console.WriteLine("Set a variable using this format: [variable] = [value].");
+            Console.WriteLine("Variables must be one letter long.");
+            Console.WriteLine("Values must be less than 2,147,483,648.");
             Console.WriteLine("Input a set variable to check its value.");
             Console.WriteLine("Input Show All to see all stored variables.");
             Console.WriteLine("Input Clear [variable] to clear a variable");
@@ -62,7 +64,9 @@ namespace SavingVariables
                         if (eval.InvalidInput)
                         {
                             Console.WriteLine("Incorrect input!");
-                            Console.WriteLine("Set a variable using this format: [variable] = [value]. The variable must be one letter long.");
+                            Console.WriteLine("Set a variable using this format: [variable] = [value].");
+                            Console.WriteLine("Variables must be one letter long.");
+                            Console.WriteLine("Values must be less than 2,147,483,648.");
                             Console.WriteLine("Input a set variable to check its value.");
                             Console.WriteLine("Input Clear [variable] to clear a variable");
                             Console.WriteLine("Input Clear All to clear all variables.");

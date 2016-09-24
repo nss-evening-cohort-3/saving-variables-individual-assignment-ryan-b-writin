@@ -18,32 +18,39 @@ namespace SavingVariables
         public int SecondTerm { get; set; }
 
         string CheckForClear = @"^[c][l][e][a][r][ ]*([a-z])$";
-        string CheckForEquals = @"^([a-z])[ ]*[=][ ]*([0-9])*$";
+        string CheckForEquals = @"^([a-z])[ ]*[=][ ]*([0-9]*)$";
         string SingleVariable = @"^([a-z])$";
 
         public Evaluation(string command)
         {
-            Match mClear = Regex.Match(command, CheckForClear);
-            Match mEquals = Regex.Match(command, CheckForEquals);
-            Match mSingle = Regex.Match(command, SingleVariable);
+            try
+            {
+                Match mClear = Regex.Match(command, CheckForClear);
+                Match mEquals = Regex.Match(command, CheckForEquals);
+                Match mSingle = Regex.Match(command, SingleVariable);
 
-            if (mClear.Success)
-            {
-                ClearStatement = true;
-                FirstTerm = mClear.Groups[1].Value;
+                if (mClear.Success)
+                {
+                    ClearStatement = true;
+                    FirstTerm = mClear.Groups[1].Value;
+                }
+                else if (mEquals.Success)
+                {
+                    IsItAnEquals = true;
+                    FirstTerm = mEquals.Groups[1].Value;
+                    SecondTerm = Int32.Parse(mEquals.Groups[2].Value);
+                }
+                else if (mSingle.Success)
+                {
+                    SingleVariableEvaluation = true;
+                    FirstTerm = mSingle.Groups[1].Value;
+                }
+                else
+                {
+                    InvalidInput = true;
+                }
             }
-            else if (mEquals.Success)
-            {
-                IsItAnEquals = true;
-                FirstTerm = mEquals.Groups[1].Value;
-                SecondTerm = Int32.Parse(mEquals.Groups[2].Value);
-            }
-            else if (mSingle.Success)
-            {
-                SingleVariableEvaluation = true;
-                FirstTerm = mSingle.Groups[1].Value;
-            }
-            else
+            catch(Exception e)
             {
                 InvalidInput = true;
             }
