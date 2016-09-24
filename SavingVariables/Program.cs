@@ -76,8 +76,16 @@ namespace SavingVariables
                         }
                         if (eval.ClearStatement)
                         {
-                            repo.ClearVariable(eval.FirstTerm);
-                            Console.WriteLine("  = " + eval.FirstTerm + " cleared!");
+                            Variable DoesItExist = repo.Find(eval.FirstTerm);
+                            if (DoesItExist != null)
+                            {
+                                repo.ClearVariable(eval.FirstTerm);
+                                Console.WriteLine("  = " + eval.FirstTerm + " cleared!");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Variable not set yet!");
+                            }
                             break;
                         }
                         else if (eval.IsItAnEquals)
